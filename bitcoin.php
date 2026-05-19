@@ -39,11 +39,11 @@
 <body>
     <form method="POST">
         <button type="submit" name="dodaj"><img src="btcnobg.png"></button>
-      </form>'
-    <img  src="wymiana1.jpg">
-    <img    src="wymiana2.jpg">
-    <img src="wymiana3.png"
-   <br>
+    </form>
+    <img src="wymiana1.jpg" id="wymiana1">
+    <img src="wymiana2.jpg" id="wymiana2">
+    <img src="wymiana3.png" id="wymiana3">
+    <br>
 <?php 
 $polaczenie = mysqli_connect("localhost", "root", "", "bitcoin");
 
@@ -55,7 +55,7 @@ if (isset($_POST['dodaj'])){
 $zapytanie = 'SELECT id, nazwa, ilosc FROM waluta';
 $wynik = mysqli_query($polaczenie, $zapytanie);
 
-echo "<table border='1'>";
+echo "<table>";
 while($wiersz = mysqli_fetch_array($wynik)) {
     echo "<tr>";
     echo "<td>".$wiersz['nazwa']."</td>";

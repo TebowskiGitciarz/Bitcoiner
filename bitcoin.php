@@ -21,13 +21,13 @@
         flex-direction: column;
     }
 
-    button {
+    #btcbutton {
         float: left;
         height: 462px;
         border: 2px solid black;
     }
 
-    button:hover {
+    #btcbutton:hover {
         background-color: gray;
     }
 
@@ -38,11 +38,12 @@
 </head>
 <body>
     <form method="POST">
-        <button type="submit" name="dodaj"><img src="btcnobg.png"></button>
+        <button type="submit" name="dodaj" id="btcbutton"><img src="btcnobg.png"></button>
+          <button type submit name="wym1"><img src="wymiana1.jpg" id="wymiana1"></button>
+        <button type submit name="wym2"><img src="wymiana2.jpg" id="wymiana2"></button>
+         <button type submit name="wym3"><img src="wymiana3.png" id="wymiana3"></button>
     </form>
-    <img src="wymiana1.jpg" id="wymiana1">
-    <img src="wymiana2.jpg" id="wymiana2">
-    <img src="wymiana3.png" id="wymiana3">
+
     <br>
 <?php 
 $polaczenie = mysqli_connect("localhost", "root", "", "bitcoin");
@@ -50,6 +51,31 @@ $polaczenie = mysqli_connect("localhost", "root", "", "bitcoin");
 if (isset($_POST['dodaj'])){
     $zapytanie2 = "UPDATE waluta SET ilosc = ilosc + 1 WHERE id = 1";
     mysqli_query($polaczenie, $zapytanie2);
+}
+
+if (isset($_POST['wym1'])){
+    $sprawdz = mysqli_query($polaczenie, "SELECT ilosc FROM waluta WHERE id = 1");
+    $stan = mysqli_fetch_array($sprawdz);
+ if ($stan['ilosc'] >= 100) {
+        mysqli_query($polaczenie, "UPDATE waluta SET ilosc = ilosc - 100 WHERE id = 1");
+        mysqli_query($polaczenie, "UPDATE waluta SET ilosc = ilosc + 1 WHERE id = 2");
+    }
+}
+if (isset($_POST['wym2'])){
+    $sprawdz = mysqli_query($polaczenie, "SELECT ilosc FROM waluta WHERE id = 2");
+    $stan = mysqli_fetch_array($sprawdz);
+ if ($stan['ilosc'] >= 10) {
+        mysqli_query($polaczenie, "UPDATE waluta SET ilosc = ilosc - 10 WHERE id = 2");
+        mysqli_query($polaczenie, "UPDATE waluta SET ilosc = ilosc + 1 WHERE id = 3");
+    }
+}
+if (isset($_POST['wym3'])){
+    $sprawdz = mysqli_query($polaczenie, "SELECT ilosc FROM waluta WHERE id = 3");
+    $stan = mysqli_fetch_array($sprawdz);
+ if ($stan['ilosc'] >= 10) {
+        mysqli_query($polaczenie, "UPDATE waluta SET ilosc = ilosc - 10 WHERE id = 3");
+        mysqli_query($polaczenie, "UPDATE waluta SET ilosc = ilosc + 1 WHERE id = 4");
+    }
 }
 
 $zapytanie = 'SELECT id, nazwa, ilosc FROM waluta';
